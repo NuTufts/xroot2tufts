@@ -9,17 +9,17 @@ Right now, we have rough notes for doing this.
 
 1. From the login node, start-up a worker node.
 
-  ```
-  srun --pty -p wongjiradlab --time 8:00:00 bash
-  ```
+   ```
+   srun --pty -p wongjiradlab --time 8:00:00 bash
+   ```
 
 2. Activate cvmfs
 
-  ```
-  cvmfs_config probe
-  cvmfs_config probe fermilab.opensciencegrid.org
-  cvmfs_config probe uboone.opensciencegrid.org
-  ```
+   ```
+   cvmfs_config probe
+   cvmfs_config probe fermilab.opensciencegrid.org
+   cvmfs_config probe uboone.opensciencegrid.org
+   ```
 
 3. Load apptainer
 
@@ -29,9 +29,9 @@ Right now, we have rough notes for doing this.
 
 4. Make a directory in your home folder on the cluster for the bearer tokens to be stored.
 
-  ```
-  mkdir -p $HOME/./local/run/
-  ```
+   ```
+   mkdir -p $HOME/./local/run/
+   ```
 
 5. Start the apptainer container
    
@@ -51,29 +51,35 @@ Right now, we have rough notes for doing this.
    setup uboonecode v10_04_07_05 -q e26:prof
    ```
 
-8. Get a bearer token (for more info on tokens, see this [uboonecode wiki page](https://cdcvs.fnal.gov/redmine/projects/uboonecode/wiki/Token_Authentication)):
+8. Renew your kerboros ticket (last 24 hours)
+
+   ```
+   kinit [fermilab username]@FNAL.GOV
+   ```
+
+9. Get a bearer token (for more info on tokens, see this [uboonecode wiki page](https://cdcvs.fnal.gov/redmine/projects/uboonecode/wiki/Token_Authentication)):
 
    ```
    htgettoken -a htvaultprod.fnal.gov -i uboone   
    ```
 
-9. Now samweb should work. Get a definition and locate files
+10. Now samweb should work. Get a definition and locate files
 
-   * get samweb definition files. example: 
-     ```
-     samweb list-definition-files SURPRISE_Test_Samples_v10_04_07_05_Run4b_super_unified_reco2_BNB_nu_overlay_reco2_dlreco
-     ```
-   * get location of file. example: 
-     ```
-     samweb locate-file merged_dlreco_5a594698-70b4-4415-b2df-5dd962f077cf_merge_20250430185537.root
-     ```
-     The above returns:
-     ```
-     enstore:/pnfs/uboone/overlay/uboone/merged_dlreco/prod_v10_04_07_05/SURPRISE_Test_Samples_v10_04_07_05_Run4b_super_unified_reco2_BNB_nu_overlay/reco2/00/01/98/45(3186@fb6628l9)
-     ```
+    * get samweb definition files. example: 
+      ```
+      samweb list-definition-files SURPRISE_Test_Samples_v10_04_07_05_Run4b_super_unified_reco2_BNB_nu_overlay_reco2_dlreco
+      ```
+    * get location of file. example: 
+      ```
+      samweb locate-file merged_dlreco_5a594698-70b4-4415-b2df-5dd962f077cf_merge_20250430185537.root
+      ```
+      The above returns:
+      ```
+      enstore:/pnfs/uboone/overlay/uboone/merged_dlreco/prod_v10_04_07_05/SURPRISE_Test_Samples_v10_04_07_05_Run4b_super_unified_reco2_BNB_nu_overlay/reco2/00/01/98/45(3186@fb6628l9)
+      ```
    
 
-10. Run command:
+11. Run command:
 
     ```
     > export BEARER_TOKEN_FILE=/run/user/<uid>/bt_u<uid>
