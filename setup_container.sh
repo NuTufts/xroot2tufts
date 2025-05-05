@@ -9,7 +9,7 @@ echo "<< get kerberos ticket for fermilab username>>"
 kinit ${USERNAME}@FNAL.GOV
 
 echo "<< setup uboonecode >>"
-UBCODE_VERSION="v10_04_05_07"
+UBCODE_VERSION="v10_04_07_05"
 QUAL="e26:prof"
 CMD="setup uboonecode $UBCODE_VERSION -q $QUAL"
 echo $CMD
